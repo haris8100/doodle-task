@@ -1,0 +1,310 @@
+{
+	"variables": [],
+	"info": {
+		"name": "TASK",
+		"_postman_id": "ca7af23c-0db1-690f-a0e7-8286bc3f15a0",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login / register",
+			"description": "",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"url": "{{baseUrl}}login",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\" : \"test@gmail.com\",\n\t\"password\" : \"123456\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"url": "{{baseUrl}}register",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\" : \"admin@gmail.com\",\n\t\"password\" : \"123456\",\n\t\"name\" : \"admin\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "product",
+			"description": "",
+			"item": [
+				{
+					"name": "product list",
+					"request": {
+						"url": "{{baseUrl}}product/list",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "uploadfile",
+									"value": "",
+									"description": "",
+									"type": "file"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "product import",
+					"request": {
+						"url": "{{baseUrl}}product/import",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "uploadfile",
+									"description": "",
+									"type": "file",
+									"src": "Untitled spreadsheet.xlsx"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "order",
+			"description": "",
+			"item": [
+				{
+					"name": "order create",
+					"request": {
+						"url": "{{baseUrl}}order/create",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"orderNo\" : \"005\",\n\t\"orderAmount\" :  \"200.00\",\n\t\"orderDetail\" : [\n\t\t{\n    \t\t\"productId\": \"60cb1610f5b86b15cf57380b\",\n    \t\t\"qty\": 1,\n    \t\t\"price\": \"100.00\"\n\t\t},\n\t\t{\n    \t\t\"productId\": \"60cb1610f5b86b15cf57380d\",\n    \t\t\"qty\": 2,\n    \t\t\"price\": \"400.00\"\n\t\t}\n\t]\n}\n"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "order cancel",
+					"request": {
+						"url": "{{baseUrl}}order/cancel",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\" : \"60cb44390ebccd362df04719\"\n}\n"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "order update",
+					"request": {
+						"url": "{{baseUrl}}order/update/60cb44390ebccd362df04719",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"orderNo\" : \"007\",\n\t\"orderAmount\" :  \"200.00\",\n\t\"orderDetail\" : [\n\t\t{\n    \t\t\"productId\": \"60cb1610f5b86b15cf57380b\",\n    \t\t\"qty\": 1,\n    \t\t\"price\": \"100.00\"\n\t\t},\n\t\t{\n    \t\t\"productId\": \"60cb1610f5b86b15cf57380d\",\n    \t\t\"qty\": 2,\n    \t\t\"price\": \"400.00\"\n\t\t}\n\t]\n}\n"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "order list",
+					"request": {
+						"url": {
+							"raw": "{{baseUrl}}order/list?sortType=ASC&sortKey=orderNo&limit=1&skip=2",
+							"host": [
+								"{{baseUrl}}order"
+							],
+							"path": [
+								"list"
+							],
+							"query": [
+								{
+									"key": "sortType",
+									"value": "ASC",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "sortKey",
+									"value": "orderNo",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "limit",
+									"value": "1",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "skip",
+									"value": "2",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"orderNo\" : \"003\",\n\t\"orderAmount\" :  \"200.00\",\n\t\"orderDetail\" : [\n\t\t{\n    \t\t\"productId\": \"60cb1610f5b86b15cf57380b\",\n    \t\t\"qty\": 1,\n    \t\t\"price\": \"100.00\"\n\t\t},\n\t\t{\n    \t\t\"productId\": \"60cb1610f5b86b15cf57380d\",\n    \t\t\"qty\": 2,\n    \t\t\"price\": \"400.00\"\n\t\t}\n\t]\n}\n"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "get order count by date",
+					"request": {
+						"url": {
+							"raw": "{{baseUrl}}order/getOrderByDate?reqDate=2021-06-17",
+							"host": [
+								"{{baseUrl}}order"
+							],
+							"path": [
+								"getOrderByDate"
+							],
+							"query": [
+								{
+									"key": "reqDate",
+									"value": "2021-06-17",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"orderNo\" : \"003\",\n\t\"orderAmount\" :  \"200.00\",\n\t\"orderDetail\" : [\n\t\t{\n    \t\t\"productId\": \"60cb1610f5b86b15cf57380b\",\n    \t\t\"qty\": 1,\n    \t\t\"price\": \"100.00\"\n\t\t},\n\t\t{\n    \t\t\"productId\": \"60cb1610f5b86b15cf57380d\",\n    \t\t\"qty\": 2,\n    \t\t\"price\": \"400.00\"\n\t\t}\n\t]\n}\n"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "get order count by customer",
+					"request": {
+						"url": "{{baseUrl}}order/getOrderByCustomer",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"orderNo\" : \"003\",\n\t\"orderAmount\" :  \"200.00\",\n\t\"orderDetail\" : [\n\t\t{\n    \t\t\"productId\": \"60cb1610f5b86b15cf57380b\",\n    \t\t\"qty\": 1,\n    \t\t\"price\": \"100.00\"\n\t\t},\n\t\t{\n    \t\t\"productId\": \"60cb1610f5b86b15cf57380d\",\n    \t\t\"qty\": 2,\n    \t\t\"price\": \"400.00\"\n\t\t}\n\t]\n}\n"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
