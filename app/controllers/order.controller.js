@@ -112,16 +112,31 @@ exports.list = async (req, res) => {
     // for limit and offset
     var limit = parseInt(req.query.limit);
     var skip = parseInt(req.query.skip);
-
+    // for searching
     var search = req.query.search;
 
-    if (search != undefined) {
+    // var sk = (search != undefined && search != '') ? { $text: { $search: search } } : trim(' ');
+    // console.log(sk, 'jhbhbh');
+
+    // Order.find(sk).limit(limit).skip(skip).sort(sort).exec((err, docs) => {
+    //     res.send(docs)
+    // });
+
+    if (search != undefined && search != '') {
         Order.find({ $text: { $search: search } }).limit(limit).skip(skip).sort(sort).exec((err, docs) => {
-            res.send(docs)
+            res.send({
+                status: 'success',
+                message: 'Order listed successfully',
+                data: docs
+            });
         });
     } else {
         Order.find().limit(limit).skip(skip).sort(sort).exec((err, docs) => {
-            res.send(docs)
+            res.send({
+                status: 'success',
+                message: 'Order listed successfully',
+                data: docs
+            });
         });
     }
 
@@ -166,7 +181,7 @@ exports.getByCustomer = (req, res) => {
         var orderAry = results[1];
         var final = [];
 
-        const resultAry = await loop(idAry,orderAry,final)
+        const resultAry = await loop(idAry, orderAry, final)
 
         return res.status(200).send({
             status: 'success',
@@ -176,7 +191,7 @@ exports.getByCustomer = (req, res) => {
     });
 }
 
-const loop = (idAry,orderAry,final) => {
+const loop = (idAry, orderAry, final) => {
     return new Promise((resolve, reject) => {
         idAry.forEach(element => {
             var ele = element.toString();
